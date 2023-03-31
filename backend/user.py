@@ -18,7 +18,7 @@ class User(BaseModel):
     def create_mistakes(self,errors:float):
         probable_error = 0 if self.fake.random.random() < errors%1 else 1
         errors = int(errors) + probable_error
-        while errors > 1:
+        while errors > 0:
             self.create_mistake()
             errors -=1
 
