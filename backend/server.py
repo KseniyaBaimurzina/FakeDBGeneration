@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from user import User
-from fake import fake
+from fake import Fake
 import os
 import json
 from dotenv import load_dotenv
@@ -46,8 +46,9 @@ def generate_users(request: UsersRequest):
         )
 
     for any_seed in range(seed + request.offset, seed + request.offset + request.count):
-        fake.update_faker(locale, any_seed)
+        fake = Fake(locale,any_seed)
         user = User(
+            fake=fake,
             number=any_seed - seed + 1,
             name=fake.faker.name(),
             phone=fake.faker.phone_number(),
@@ -55,5 +56,5 @@ def generate_users(request: UsersRequest):
             id=fake.faker.uuid4(),
         )
         user.create_mistakes(request.errors)
-        users.append(user)
+        users.append(user.data())
     return users

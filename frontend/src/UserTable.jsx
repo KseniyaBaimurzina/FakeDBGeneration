@@ -63,7 +63,7 @@ function UserTable() {
                 "country": region
             };
             const url = process.env.REACT_APP_SERVER_URL;
-            const response = await axios.post(url, data);
+            const response = await axios.post(`${url}/users`, data);
 
             return response.data;
         }
@@ -89,8 +89,8 @@ function UserTable() {
     }
 
     return (
-        <Box m={20} style={{ padding: 20, overflow: 'hidden' }} >
-            <Grid style={{ position: 'sticky', top: 0, backgroundColor: 'white' }} container alignItems="center" spacing={2}>
+        <Box style={{ overflow: 'hidden' }} >
+            <Grid style={{ position: 'sticky', backgroundColor: 'white', padding: 10 }} container alignItems="center" spacing={10}>
                 <Grid item s>
                     <Box minWidth={2}>
                         <TextField
@@ -124,21 +124,17 @@ function UserTable() {
                     </Button>
                 </Grid>
                 <Grid item s>
-                    <Box display="flex" alignItems="center">
-                        <Typography>Number of Errors:</Typography>
-                        <Box ml={2}>
-                            <Slider
-                                size="small"
-                                aria-label="Small"
-                                value={sliderValue}
-                                onChange={handleSliderErrorsChange}
-                                valueLabelDisplay="auto"
-                                step={0.25}
-                                min={0.0}
-                                max={10.0}
-                            />
-                        </Box>
-                    </Box>
+                    <Typography>Number of Errors:</Typography>
+                    <Slider
+                        size="small"
+                        aria-label="Small"
+                        value={sliderValue}
+                        onChange={handleSliderErrorsChange}
+                        valueLabelDisplay="auto"
+                        step={0.25}
+                        min={0.0}
+                        max={10.0}
+                    />
                 </Grid>
                 <Grid item s>
                     <TextField
