@@ -16,7 +16,7 @@ class User(BaseModel):
         arbitrary_types_allowed = True
 
     def create_mistakes(self,errors:float):
-        probable_error = 0 if self.fake.random.random() < errors%1 else 1
+        probable_error = 0 if self._fake.random.random() < errors%1 else 1
         errors = int(errors) + probable_error
         while errors > 1:
             self.create_mistake()
@@ -30,28 +30,28 @@ class User(BaseModel):
     def delete_symbols_mistake(self,value:str):
         if len(value) == 1:
             return value
-        index = self.fake.random.randint(0,len(value))
+        index = self._fake.random.randint(0,len(value))
         return value[:index] + value[index+1:]
 
     def change_symbols_mistake(self,value:str):
         if len(value) == 1:
             return value
-        index = self.fake.random.randint(0,len(value)-2)
+        index = self._fake.random.randint(0,len(value)-2)
         value = list(value)
         value[index],value[index+1] = value[index+1],value[index]
         return "".join(value)
 
     def add_symbols_mistake(self,value:str):
-        random_symbol = self.fake.get_random_locale_symbol()
-        index = self.fake.random.randint(0,len(value)-1)
+        random_symbol = self._fake.get_random_locale_symbol()
+        index = self._fake.random.randint(0,len(value)-1)
         return value[:index+1] + random_symbol + value[index+1:]
         
     def get_property_to_change(self):
         props = ["address","name","phone"]
-        prop = self.fake.random.choice(props)
+        prop = self._fake.random.choice(props)
         value = getattr(self,prop)
         return prop, value
 
     def get_mistake_method(self) -> Callable:
         mistake_methods = [self.delete_symbols_mistake,self.change_symbols_mistake,self.add_symbols_mistake]
-        return self.fake.random.choice(mistake_methods)
+        return self._fake.random.choice(mistake_methods)
