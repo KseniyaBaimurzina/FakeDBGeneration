@@ -10,13 +10,10 @@ class User(BaseModel):
     address: str
     id: UUID
 
-    fake: Fake
+    _fake: Fake
 
     class Config:
         arbitrary_types_allowed = True
-    
-    def data(self):
-        return self.dict(exclude=("fake"))
 
     def create_mistakes(self,errors:float):
         probable_error = 0 if self.fake.random.random() < errors%1 else 1

@@ -56,5 +56,5 @@ def generate_users(request: UsersRequest):
             id=fake.faker.uuid4(),
         )
         user.create_mistakes(request.errors)
-        users.append(user.data())
+        users.append(user)
     return users
