@@ -11,6 +11,9 @@ class User(BaseModel):
     id: UUID
 
     fake: Fake
+
+    class Config:
+        arbitrary_types_allowed = True
     
     def data(self):
         return self.dict(exclude=("fake"))
