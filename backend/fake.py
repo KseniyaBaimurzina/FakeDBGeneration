@@ -17,11 +17,3 @@ class Fake():
         else:
             symbol = str(self.random.randint(0,9))
         return symbol
-        # return word[random.randint(0,len(word)-1)]
-    
-    # def update_faker(self,locale:str,seed:int):
-    #     Faker.seed(seed)
-    #     self.faker = Faker(locale)
-    #     random.seed(seed)
-    
-# fake = Fake()

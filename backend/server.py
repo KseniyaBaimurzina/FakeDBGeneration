@@ -48,7 +48,7 @@ def generate_users(request: UsersRequest):
     for any_seed in range(seed + request.offset, seed + request.offset + request.count):
         fake = Fake(locale,any_seed)
         user = User(
-            _fake=fake,
+            fake=fake,
             number=any_seed - seed + 1,
             name=fake.faker.name(),
             phone=fake.faker.phone_number(),
@@ -56,5 +56,5 @@ def generate_users(request: UsersRequest):
             id=fake.faker.uuid4(),
         )
         user.create_mistakes(request.errors)
-        users.append(user)
+        users.append(user.dict(exclude={"fake"}))
     return users
